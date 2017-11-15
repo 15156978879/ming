@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>hello</title>
+    <script src="/assets/front/pc/jquery.min.js"></script>
+</head>
+<body>
+<h1>hello world!</h1>
+<h2>当前时间：${currentTime}</h2>
+
+<button id="btn">获取Json</button>
+</body>
+</html>
+<script>
+$(function () {
+    $("#btn").click(function () {
+        $.ajax({
+            url:"/hello/getJson",
+            type:"post",
+            data:{"name":"wang","age":"24"},
+            success:function(result){
+                alert(JSON.stringify(result));
+            }
+        });
+    });
+});
+
+</script>

@@ -1,0 +1,142 @@
+我相信很多朋友这方面的代码需求，但是其实这个需求看上去简单，实现起来却比较困难，关键在于浏览器的cookie机制以及用户不通过正常渠道退出，而是直接关闭浏览器时的处理方式。我们的处理方式相信大同小异，都是利用session，但是这里有几个问题需要解决，首先看下面这篇文章
+对于一个帐号在同一时间只能一个人登录，可以通过下面的方法实现：
+1 ．在用户登录时，把用户添加到一个ArrayList中
+2 ．再次登录时查看ArrayList中有没有该用户，如果ArrayList中已经存在该用户，则阻止其登录
+3 ．当用户退出时，需要从该ArrayList中删除该用户，这又分为三种情况
+① 使用注销按钮正常退出
+② 点击浏览器关闭按钮或者用Alt+F4退出，可以用javascript捕捉该页面关闭事件，
+执行一段java方法删除ArrayList中的用户
+③ 非正常退出，比如客户端系统崩溃或突然死机，可以采用隔一段时间session没活动就删除该session所对应的用户来解决，这样用户需要等待一段时间之后就可以正常登录。
+在LoginAction中定义：
+// 用来在服务器端存储登录的所有帐号
+public static List logonAccounts;
+login() 登录方法中：
+// 设置session不活动时间为30分
+request.getSession().setMaxInactiveInterval(60*30);
+if(logonAccounts==null){
+    logonAccounts = new ArrayList();
+}
+// 查看ArrayList中有没有该用户
+for (int i = 0; i < logonAccounts.size(); i++) {
+    Account existAccount = (Account)logonAccounts.get(i);
+    if(account.getAccountId().equals(existAccount.getAccountId())){
+        return "denied";
+    }
+}
+// 在用户登录时，把sessionId添加到一个account对象中
+// 在后面 ③ 需要根据此sessionId删除相应用户
+account.setSessionId(request.getSession().getId());
+// 该用户保存到ArrayList静态类变量中
+logonAccounts.add(account);
+return "login";
+① 使用注销按钮正常退出
+logout() 退出方法中：
+if(logonAccounts==null){
+    logonAccounts = new ArrayList();
+}
+// 删除ArrayList中的用户  ⑴
+for (int i = 0; i < logonAccounts.size(); i++) {
+    Account existAccount = (Account)logonAccounts.get(i);
+    if(account.getAccountId().equals(existAccount.getAccountId())){
+        logonAccounts.remove(account);
+    }
+}
+② 点击浏览器关闭按钮或者用Alt+F4退出：
+在后台弹出一个窗口，在弹出窗口中删除ArrayList中的用户
+function window.onbeforeunload(){
+// 是否通过关闭按钮或者用Alt+F4退出
+// 如果为刷新触发onbeforeunload事件，下面if语句不执行
+    if (event.clientX>document.body.clientWidth && event.clientY<0||event.altKey){
+        window.open('accountUnbound.jsp','',
+                'height=0,width=0,top=10000,left=10000');
+    }
+}
+accountUnbound.jsp : 弹出窗口中删除ArrayList中的用户
+<%
+    Account account = (Account) request.getSession().getAttribute("account");
+    if(account != null){
+        if(LoginAction.logonAccounts==null){
+            LoginAction.logonAccounts = new ArrayList();
+        }
+        // 删除ArrayList中的用户——下面代码和上面的 ⑴ 处一样
+        for (int i = 0; i < logonAccounts.size(); i++) {
+            Account existAccount = (Account)logonAccounts.get(i);
+            if(account.getAccountId().equals(existAccount.getAccountId())){
+                logonAccounts.remove(account);
+           }
+        }
+    }
+%>
+为了保证上面代码可以执行完毕，3秒后关闭此弹出窗口（也位于accountUnbound.jsp中）
+<script>
+setTimeout("closeWindow();",3000);
+function closeWindow(){
+    window.close();
+}
+</script>
+③ 使LoginAction 实现implements HttpSessionListener，并实现sessionCreated，sessionDestroyed方法，在sessionDestroyed中删除ArrayList中的用户（用户超过30分钟不活动则执行此方法）
+public void sessionDestroyed(HttpSessionEvent event) {
+   // 取得不活动时的sessionId,并根据其删除相应logonAccounts中的用户
+   String sessionId = event.getSession().getId();
+   for (int i = 0; i < logonAccounts.size(); i++) {
+       Account existAccount = (Account)logonAccounts.get(i);
+       if(account.getSessionId().equals(existAccount.getSessionId())){
+           logonAccounts.remove(account);
+       }
+   }
+}
+注：
+对于上面的，由于弹出窗口很容易被防火墙或者安全软件阻拦，造成无法弹出窗口，从而短时间不能登录，这种情况可以用AJAX来代替弹出窗口，同样在后台执行删除用户的那段代码，却不会受到防火墙限制：
+<script>
+    // <![CDATA[
+    var http_request = false;
+    function makeRequest(url) {
+        http_request = false;
+        if (window.XMLHttpRequest) { // Mozilla, Safari,...
+            http_request = new XMLHttpRequest();
+           if (http_request.overrideMimeType) {
+                http_request.overrideMimeType('text/xml');
+            }
+        } else if (window.ActiveXObject) { // IE
+          try {
+                http_request = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {
+                }
+            }
+        }
+        if (!http_request) {
+           alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        http_request.onreadystatechange = alertContents;
+        http_request.open('GET', url, true);
+        http_request.send(null);
+    }
+    function alertContents() {
+        if (http_request.readyState == 4) {
+            if (http_request.status == 200) {
+                window.close();
+            } else {
+                alert('There was a problem with the request.');
+            }
+        }
+    }
+    function window. onbeforeunload() {
+        makeRequest ('accountUnbound.jsp');
+    }
+    //]]>
+</script>
+对于上面的这段ajax代码，在网上有很多详细的解释，把它加到onbeforeunload()浏览器关闭事件中，在后台执行代码的效果很好，不必担心弹出窗口有时候会无效的问题。
+使用这段代码后，上面②中accountUnbound.jsp中的那段关闭弹出窗口window.close();的js代码就不需要了。
+这里有这样几个问题：
+1、现代浏览器广泛采用cookie机制，若我们用chrome打开一个界面，固然为其分配了一个session，但是，当我们关闭该浏览器，然后重新打开页面时，我们发现使用的是同样一个session,这样程序就会认为是同一个用户而拒绝访问。
+2、当我们关掉某个浏览器时，session其实并没有被销毁，因此监听器的回调方法并没有被执行，当下起重新登录时，原有的记录任然保存在数组中，使得访问被拒绝。默认意义上只有在经过30分钟的间隔时间后，session才会被销毁，监听器的回调方法才会被执行。
+解决方法：
+Account existAccount = (Account)logonAccounts.get(i);
+    if(account.getAccountId().equals(existAccount.getAccountId())){
+        return "denied";
+    }
+修改上述代码，将对AccountId的比较改为对sessionId的比较，这样，在不启用cookie的情况下，关掉浏览器后，重新打开，会分配一个新的session，这样就不会被拒绝。然而，如果考虑到浏览器使用了cookie，那么这种方式好像也失去了作用
