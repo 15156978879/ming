@@ -4,7 +4,9 @@ import com.coffeers.app.framework.annotation.Json;
 import com.coffeers.app.framework.annotation.Result;
 import com.coffeers.app.framework.bean.BeanHelper;
 import com.coffeers.app.framework.bean.ReflectionUtil;
+import com.coffeers.app.framework.config.Config;
 import com.coffeers.app.framework.config.ConfigHelper;
+import com.coffeers.app.framework.config.PropsUtil;
 import com.coffeers.app.framework.controller.utils.CodeUtil;
 import com.coffeers.app.framework.controller.utils.StreamUtil;
 import com.coffeers.app.framework.ioc.ArrayUtil;
@@ -141,6 +143,7 @@ public class DispatcherServlet extends HttpServlet {
             }else if("beetl".equalsIgnoreCase(resultValue) || "".equalsIgnoreCase(resultValue)){
                 logger.info("Forward ::: "+result+".html");
                 //转发
+                req.setAttribute("base", "ming");
                 ServletGroupTemplate.instance().render(result+".html", req, resp);
             }
 
