@@ -1,8 +1,14 @@
-.oper-move{
-    position:absolute;
-    cursor:default;
-}
+.cssBorder{border: 1px solid red}
 
+
+
+.oper-move{
+    position: absolute;
+    cursor: move;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+/*
 #rRightDown,#rLeftDown,#rLeftUp,#rRightUp,#rRight,#rLeft,#rUp,#rDown{
     position:absolute;background:#C00;width:6px;height:6px;z-index:5;font-size:0;}
 #rRight{width:5px}
@@ -19,4 +25,4 @@
 #rRight{ right:-3px; top:50%}
 #rLeft{ left:-3px; top:50%}
 #rUp{ top:-3px; left:50%}
-#rDown{ bottom:-3px; left:50%}
+#rDown{ bottom:-3px; left:50%}*/

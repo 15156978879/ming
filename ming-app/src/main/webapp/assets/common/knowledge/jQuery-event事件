@@ -1,0 +1,54 @@
+介绍之前先介绍jQuery的一个方法 jQuery.event.fix(event || window.event); 此方法个浏览器的event对象转换为 jQuery.event; 如果您的事件是通过jQuery方法绑定的，就不需要进行转换了！
+
+jQuery在遵循W3C规范的情况下，对事件的常用属性进行了封装，使得事件处理在各大浏览器下都可以正常的运行而不需要进行浏览器类型判断。
+
+1.event.type属性
+该方法作用是可以获取到时间的类型
+
+$("a").click(function(event){
+    alert(event.type); //获取时间类型
+    return false; //阻止链接跳转
+})
+ 以上代码运行后会返回：“click”。
+
+2.event.preventDefault()方法
+该方法的作用是阻止默认的事件行为。JavaScript中符合W3C规范的preventDefault()方法在IE浏览器中无效。jQuery对其进行了封装，使之能兼容各种浏览器。
+
+3.event.stopPropagation()方法
+该方法是阻止事件的冒泡。JavaScript中符合W3C规范的stopPropagation()方法在IE浏览器中无效。jQuery对其进行封装，使之能兼容各种浏览器。
+
+4.event.target属性
+event.target属性的作用是获取到出发事件的元素。jQuery对其封装后，避免了W3C、IE和safari浏览器不同标准的差异。
+
+$("a[href=http://www.jb51.net]").click(function(event){
+    alert(event.target.href); //获取触发事件的<a>元素的href属性值
+    alert(event.target.tagName); //获取触发事件的元素的标签名称
+    return false; //阻止链接跳转})
+ 5.event.relatedTarget属性
+在标准DOM中，mouseover和mouseout所发生的元素可以通过event.target()方法来访问，相关元素是通过event.relatedTarget属性来访问的。event.relatedTarget属性在mouseover中相当于IE浏览器的event.fromElement属性，在mouseout中相当于IE浏览器的event.toElement,jQuery对其进行了封装，使之能兼容各种浏览器。
+
+6.event.pageX/event.pageY属性
+该方法的作用是获取到光标相对页面的x坐标和y坐标。如果没有使用jQuery时，那么IE浏览器中是用event/event.y方法，而在Firefox浏览器中用event.pageX/event.pageY方法。如果页上有滚动条，则还要加上滚动条的宽度和高度。在IE浏览器中还应该减去默认的2px的边框。
+
+$(function() {
+    $("a").click(function(event) {
+        alert("Current mouse position:" + event.pageX + "," + event.pageY);
+        //获取鼠标当前相对于页面的坐标
+        return false; //阻止链接跳转
+    });
+})
+ 7.event.which属性
+该方法的作用是在鼠标单击事件中获取到鼠标的左、中、右键；在键盘事件中获取键盘的按钮。
+
+$(function() {
+    $("body").mousedown(function(e) {
+        alert(e.which); //1 = 鼠标左键；2 = 鼠标中键；3 = 鼠标右键。
+    })
+})
+ 以上代码加载到页面中，用鼠标单击页面时，单击左、中、右键分别返回1、2、3.
+
+8.event.metaKey属性
+针对不同浏览器对键盘中的<ctrl>按键解释不同，jQuery也进行了封装，并规定event.metaKey()方法为键盘事件中获取<ctrl>按键。
+
+9.event.originalEvent属性。
+该方法的作用是指向原始的事件对象。
