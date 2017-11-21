@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>登录</title>
+      <link rel="stylesheet" href="/assets/common/base.css" media="screen" type="text/css" />
       <link rel="stylesheet" href="/assets/platform/pc/sys/login/stars/css/normalize.css">
       <link rel="stylesheet" href="/assets/platform/pc/sys/login/stars/css/style.css">
       <script src="/assets/platform/pc/sys/login/stars/js/modernizr.js" type="text/javascript"></script>
@@ -10,13 +11,14 @@
 
       <link rel="stylesheet" href="/assets/platform/pc/sys/login/form/css/style.css" media="screen" type="text/css" />
       <script src="/assets/platform/pc/sys/login/form/js/modernizr.js"></script>
+
   </head>
   <body>
     <div id='stars'></div>
     <div id='stars2'></div>
     <div id='stars3'></div>
-    <div id='title'>
-        <form>
+    <div id='title' >
+        <form class="oper-move" id="oper-move">
             <input name="name" placeholder="What is your name?" class="name" required />
             <input name="emailaddress" placeholder="What is your email?" class="email" type="email" required />
             <input name="submit" class="btn" type="submit" value="登录" />
@@ -25,5 +27,6 @@
 
    <!-- <script src='http://www.5iweb.com.cn/statics/js/jquery.1.7.1.min.js'></script>-->
     <script src="/assets/common/jquery.min.js"></script>
+    <script src="/assets/common/base.js"></script>
   </body>
 </html>

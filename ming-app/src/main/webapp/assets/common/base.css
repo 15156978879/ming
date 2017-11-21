@@ -1,0 +1,22 @@
+.oper-move{
+    position:absolute;
+    cursor:default;
+}
+
+#rRightDown,#rLeftDown,#rLeftUp,#rRightUp,#rRight,#rLeft,#rUp,#rDown{
+    position:absolute;background:#C00;width:6px;height:6px;z-index:5;font-size:0;}
+#rRight{width:5px}
+#rLeftDown,#rRightUp{cursor:ne-resize;}
+#rRightDown,#rLeftUp{cursor:nw-resize;}
+#rRight,#rLeft{cursor:e-resize;}
+#rUp,#rDown{cursor:n-resize;}
+
+
+#rRightDown{ bottom:-3px; right:-3px;}
+#rLeftDown{ bottom:-3px; left:-3px;}
+#rRightUp{ top:-3px; right:-3px;}
+#rLeftUp{ top:-3px; left:-3px;}
+#rRight{ right:-3px; top:50%}
+#rLeft{ left:-3px; top:50%}
+#rUp{ top:-3px; left:50%}
+#rDown{ bottom:-3px; left:50%}
