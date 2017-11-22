@@ -2,28 +2,30 @@
  * Created by Administrator on 2017/11/17 0017.
  */
 (function($) {
+
+    //可拖动模块开始
     $.fn.dragDiv = function(divWrap) {
 
         return this.each(function() {
             var $divMove = $(this);//鼠标可拖拽区域
             var cssBorder = $divMove.css("border");
 
-            var paddingLeft = parseInt($divMove.css("padding-left").split("px")[0]);
-            var paddingRight = parseInt($divMove.css("padding-right").split("px")[0]);
-            var paddingTop = parseInt($divMove.css("padding-top").split("px")[0]);
-            var paddingBottom = parseInt($divMove.css("padding-bottom").split("px")[0]);
-            var marginLeft = parseInt($divMove.css("margin-left").split("px")[0]);
-            var marginRight = parseInt($divMove.css("margin-right").split("px")[0]);
-            var marginTop = parseInt($divMove.css("margin-top").split("px")[0]);
-            var marginBottom = parseInt($divMove.css("margin-bottom").split("px")[0]);
-            var borderLeft = parseInt($divMove.css("border-left-width").split("px")[0]);
-            var borderRight = parseInt($divMove.css("border-right-width").split("px")[0]);
-            var borderTop = parseInt($divMove.css("border-top-width").split("px")[0]);
-            var borderBottom = parseInt($divMove.css("border-bottom-width").split("px")[0]);
+            //var paddingLeft = parseInt($divMove.css("padding-left").split("px")[0]);
+            //var paddingRight = parseInt($divMove.css("padding-right").split("px")[0]);
+            //var paddingTop = parseInt($divMove.css("padding-top").split("px")[0]);
+            //var paddingBottom = parseInt($divMove.css("padding-bottom").split("px")[0]);
+            //var marginLeft = parseInt($divMove.css("margin-left").split("px")[0]);
+            //var marginRight = parseInt($divMove.css("margin-right").split("px")[0]);
+            //var marginTop = parseInt($divMove.css("margin-top").split("px")[0]);
+            //var marginBottom = parseInt($divMove.css("margin-bottom").split("px")[0]);
+            //var borderLeft = parseInt($divMove.css("border-left-width").split("px")[0]);
+            //var borderRight = parseInt($divMove.css("border-right-width").split("px")[0]);
+            //var borderTop = parseInt($divMove.css("border-top-width").split("px")[0]);
+            //var borderBottom = parseInt($divMove.css("border-bottom-width").split("px")[0]);
             var moveTop = parseInt($divMove.css("top").split("px")[0]);
             var moveLeft = parseInt($divMove.css("left").split("px")[0]);
-            var height = parseInt($divMove.css("height").split("px")[0])+paddingTop+paddingBottom+marginTop+marginBottom+borderTop+borderBottom;
-            var width  = parseInt($divMove.css("width").split("px")[0]) +paddingLeft+paddingRight+marginLeft+marginRight+borderLeft+borderRight;
+            //var height = parseInt($divMove.css("height").split("px")[0])+paddingTop+paddingBottom+marginTop+marginBottom+borderTop+borderBottom;
+            //var width  = parseInt($divMove.css("width").split("px")[0]) +paddingLeft+paddingRight+marginLeft+marginRight+borderLeft+borderRight;
 
             if(!$divMove.hasClass("move-wrap")){
                 $divMove.css({"border":"4px dashed #639BF6"});
@@ -99,6 +101,11 @@
 
         });
     };
+    //可拖动模块结束
+
+
+
+
 })(jQuery);
 //
 $(document).ready(function() {
@@ -129,6 +136,30 @@ $(document).ready(function() {
             $(this).dragDiv(".move-wrap");//拖拽div头部
         }
     })
+    //可拖动模块结束
+
+    //提示框开始
+    $(".tip-box").click(function(){
+        if(!$(this).prev().hasClass("tip-des")){
+            $(this).before('<div class="tip-des">点击空白区域，关闭信息！<span></span></div>');
+            $(".tip-des").fadeIn();
+        }
+    })
+
+    $(".tip-box").click(function(event){
+        var e=window.event || event;
+        if(e.stopPropagation){
+            e.stopPropagation();
+        }else{
+            e.cancelBubble = true;
+        }
+    });
+    $(this).click(function(){
+        $(".tip-des").fadeOut(500,function () {
+            $(".tip-des").remove();
+        });
+    })
+    //提示框结束
 
 
 });

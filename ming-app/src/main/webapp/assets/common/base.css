@@ -1,13 +1,19 @@
+/*可拖动模块样式开始*/
 .cssBorder{border: 1px solid red}
-
-
-
 .oper-move{
     position: absolute;
     cursor: move;
     -moz-user-select: none;
     -webkit-user-select: none;
 }
+/*可拖动模块样式结束*/
+
+/*提示框样式开始*/
+.tip-box{ cursor: pointer;}
+.tip-des{ letter-spacing:0px;width: 200px; height: 30px;margin-top: -30px; position: absolute; background: #FFFFFF; color: #0090FF; border-radius: 30px; font-size: 12px; text-align: center; line-height: 30px; display: none;}
+.tip-des span{ display: block; width: 0px; height: 0px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #FFFFFF; position: absolute; left: 50%; bottom: -5px; margin-left: -2.5px;}
+/*提示框样式结束*/
+
 /*
 #rRightDown,#rLeftDown,#rLeftUp,#rRightUp,#rRight,#rLeft,#rUp,#rDown{
     position:absolute;background:#C00;width:6px;height:6px;z-index:5;font-size:0;}

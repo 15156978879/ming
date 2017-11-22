@@ -1,0 +1,29 @@
+1.使模块可拖动（不保存移动后的位置）
+    js/css路径：/assets/common/base.js   /assets/common/base.css
+    class="oper-move"
+2.点击元素显示提示信息框
+    js/css路径：/assets/common/base.js   /assets/common/base.css
+    class="tip-box"
+3.省市插件1
+    js/css路径：/assets/common/vendor/city
+    <input type="text" id="cityChoice">
+
+    var cityPicker = new HzwCityPicker({
+        data: data,
+        target: 'cityChoice',
+        valType: 'k-v',
+        hideCityInput: {
+            name: 'city',
+            id: 'city'
+        },
+        hideProvinceInput: {
+            name: 'province',
+            id: 'province'
+        },
+        callback: function(){
+            alert('OK');
+        }
+    });
+    cityPicker.init();
+
+4.日历插件
