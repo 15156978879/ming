@@ -128,7 +128,9 @@ $(document).ready(function() {
 
     $(".oper-move").dblclick(function(){
         if($(this).css('border')!='4px dashed rgb(99, 155, 246)'){
+            $(this).css("box-shadow",'10px 10px 25px #ccc !important');
             $(this).dragDiv();//拖拽整个div
+
         }
     })
     $(".move-wrap").dblclick(function(){

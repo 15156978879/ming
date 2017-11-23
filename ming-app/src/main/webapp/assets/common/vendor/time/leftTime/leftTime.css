@@ -1,0 +1,10 @@
+/*秒数倒计时*/
+.last-time-btn{display: inline-block;height:30px;line-height:30px;padding:0 10px; border:0; border-radius:5px;color:#fff;background:rgb(65,133,244);cursor: pointer;}
+.last-time-btn.on{background:#c9c9c9;color:#666;cursor: default;}
+/*日期倒计时*/
+.last-time-box{line-height:30px;}
+.last-tiem-span,.last-s-span{display: inline-block;font-size:18px; width:36px; height:30px;line-height:30px; text-align: center; color:#fff; border-radius:5px;}
+.last-tiem-span{ background:#333;}
+.last-s-span{ background:#f00;}
+
+.date-select-a{margin-right:5px;}

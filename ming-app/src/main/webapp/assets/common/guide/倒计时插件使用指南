@@ -1,0 +1,218 @@
+<link rel="stylesheet" href="/assets/common/vendor/time/leftTime/leftTime.css" media="screen" type="text/css" />
+<script type="text/javascript" src="/assets/common/vendor/time/leftTime/leftTime.js"></script>
+
+1.秒数倒计时
+    <button type="button" class="last-time-btn" time="70">获取验证码</button>
+2.未来某个时间time和当前时间倒计时
+    <div class="last-time-box" time="2018/01/22 23:45:24" day="false" hour=false minute second></div>
+3.清除日期倒计时
+    <div class="last-time-box" time="2018/01/22 23:45:24" id="aa"></div>
+    <button type="button" class="last-time-btn-clean" clean="prev">清除上一个时间(条件:兄弟元素)</button>
+    <button type="button" class="last-time-btn-clean" clean="next">清除下一个时间(条件:兄弟元素)</button>
+    <button type="button" class="last-time-btn-clean" clean="prevAll">清除之前所有时间(条件:兄弟元素)</button>
+    <button type="button" class="last-time-btn-clean" clean="nextAll">清除之后所有时间(条件:兄弟元素)</button>
+    <button type="button" class="last-time-btn-clean" clean="all">清除所有时间</button>
+    <button type="button" class="last-time-btn-clean" clean="aa">清除ID=aa的倒计时</button>
+4.60秒倒计时精确到毫秒
+    <div class="last-time-second"></div>
+    var times = 60 * 100; // 60秒
+    countTime = setInterval(function() {
+        times = --times < 0 ? 0 : times;
+        var ms = Math.floor(times / 100).toString();
+        if(ms.length <= 1) {
+            ms = "0" + ms;
+        }
+        var hm = Math.floor(times % 100).toString();
+        if(hm.length <= 1) {
+            hm = "0" + hm;
+        }
+        if(times == 0) {
+            clearInterval(countTime);
+        }
+        // 获取分钟、毫秒数
+        $(".last-time-second").html(ms+" "+hm);
+    }, 10);
+
+
+5.距时间段倒计时（未封装）
+    <div class="last-time-box" time="2018/01/22 23:45:24" id="aa"></div>
+    <div class="">
+        当前系统时间：<select class="date-select-c" id="getTimeSct_1">
+            <option value="0">正常</option>
+            <option value="1">快1分钟</option>
+            <option value="5">快5分钟</option>
+            <option value="-5">慢5分钟</option>
+        </select><br />
+        今日开始时间：<select class="date-select-a" id="getTimeSct_2"></select>时<select class="date-select-b" id="getTimeSct_3"></select>分<br />
+        结束时间：<select class="date-select-a" id="getTimeSct_4"></select>时<select class="date-select-b" id="getTimeSct_5"></select>分<br />
+        选择天数：<select class="date-select-c" id="getTimeSct_6">
+                    <option value="0">今天</option>
+                    <option value="1" selected="selected">明天</option>
+                    <option value="2">后天</option>
+                </select><br />
+        是否跳过开始时间：<select class="date-select-c" id="getTimeSct_7">
+                    <option value="false" selected="selected">否</option>
+                    <option value="true">是</option>
+                </select><br />
+        未满10时是否加0：<select class="date-select-c" id="getTimeSct_8">
+                    <option value="false">否</option>
+                    <option value="true" selected="selected">是</option>
+                </select><br />
+                <button type="button" class="testBtn-a" id="dateBtn2">立即执行</button>
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            //时间段
+            function checkIFn(i){
+                if(i < 10) {
+                  i = "0" + i;
+                }
+                return i;
+            }
+            for(var i=0;i<24;i++){
+                $("select.date-select-a").append('<option value="'+checkIFn(i)+'" '+(i==9?'selected="selected"':"")+'>'+checkIFn(i)+'</option>');
+            }
+            for(var i=0;i<60;i++){
+                $("select.date-select-b").append('<option value="'+checkIFn(i)+'">'+checkIFn(i)+'</option>');
+            }
+            var clearTime1=0;
+            function setDateSelectedFn(){
+                //清除时间
+                window.clearInterval(clearTime1);
+                var $getTimeSct1=$("#getTimeSct_1"),
+                    $getTimeSct2=$("#getTimeSct_2"),
+                    $getTimeSct3=$("#getTimeSct_3"),
+                    $getTimeSct4=$("#getTimeSct_4"),
+                    $getTimeSct5=$("#getTimeSct_5"),
+                    $getTimeSct6=$("#getTimeSct_6"),
+                    $getTimeSct7=$("#getTimeSct_7"),
+                    $getTimeSct8=$("#getTimeSct_8");
+                /*== 获取数据 ==*/
+                var data={};
+                //系统时间
+                data.nowdate=new Date().getTime()+(parseInt($getTimeSct1.find("option:selected").val())*60*1000);
+                //开始时间
+                data.startdate=$getTimeSct2.find("option:selected").val()+":"+$getTimeSct3.find("option:selected").val();
+                //结束时间
+                data.enddate=$getTimeSct4.find("option:selected").val()+":"+$getTimeSct5.find("option:selected").val();
+                //天数
+                data.setday=parseInt($getTimeSct6.find("option:selected").val());
+                //是否跳过开始
+                data.init=$getTimeSct7.find("option:selected").val()=="false"?false:true;
+                clearTime1=$.leftTime(data,function(d){
+                if(d.status){
+                    var $dateShow1=$("#dateShow2");
+                    $dateShow1.find(".d").html(d.d);
+                    $dateShow1.find(".h").html(d.h);
+                    $dateShow1.find(".m").html(d.m);
+                    $dateShow1.find(".s").html(d.s);
+                    switch(d.step){
+                        case 1:
+                        $("#dataInfoShow_1").html("距离开始时间：");
+                        break;
+                        case 2:
+                        $("#dataInfoShow_1").html("距离结束时间：");
+                        break;
+                        case 3:
+                        $("#dataInfoShow_1").html("倒计时已结束：");
+                        break;
+                        default:
+                        $("#dataInfoShow_1").html("");
+                         break;
+                    }
+                }
+            },$getTimeSct8.find("option:selected").val()=="false"?false:true);
+            }
+            //初始化
+            setDateSelectedFn();
+            //手动触发
+            $("#dateBtn2").on("click",setDateSelectedFn);
+        });
+    </script>
+
+    注释：
+    <pre>var data={
+        nowdate:系统时间,
+        startdate:开始时间，格式为：h:m或日期格式,
+        enddate：结束时间，格式为：h:m或日期格式,
+        setday:提前天数，例如：0为当天，1为明天,
+        init:是否跳过开始时间，默认是false，当为true倒计时跳过开始时间
+    }
+    $.leftTime(data,function(d){
+        if(d.status){
+            //d.step 0表示普通倒计时，1表示未过开始时间，2表示已过开始时间未过结束时间，3表示已过结束时间；
+        }
+    },//未满10时是否加0，值false||true，默认值为true);
+    </pre>
+6.距时间段,手动输入倒计时（未封装）
+    <div class="last-time-box" time="2018/01/22 23:45:24" id="aa"></div>
+    <div class="">
+        当前系统时间：<input type="text" value="" id="getTimeIpt_1"><br />
+        开始时间：<input type="text" value="2018/01/01 00:00:00" id="getTimeIpt_2"><br />
+        结束时间：<input type="text" value="2019/07/11 12:00:00" id="getTimeIpt_3"><br />
+        是否跳过开始时间：<select class="date-select-c" id="getTimeIpt_5">
+                    <option value="false" selected="selected">否</option>
+                    <option value="true">是</option>
+                </select><br />
+        未满10时是否加0：<select class="date-select-c" id="getTimeIpt_6">
+                    <option value="false">否</option>
+                    <option value="true" selected="selected">是</option>
+                </select><br />
+                <button type="button" class="testBtn-a" id="dateBtn3">立即执行</button>
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            //距离时间段手动输入
+            $("#getTimeIpt_1").val(new Date().format("yyyy/MM/dd hh:mm:ss"));
+            var clearTime2=0;
+            function setDateImportFn(){
+                //清除时间
+                window.clearInterval(clearTime2);
+                var $getTimeIpt1=$("#getTimeIpt_1"),
+                    $getTimeIpt2=$("#getTimeIpt_2"),
+                    $getTimeIpt3=$("#getTimeIpt_3"),
+                    $getTimeIpt4=$("#getTimeIpt_4"),
+                    $getTimeIpt5=$("#getTimeIpt_5"),
+                    $getTimeIpt6=$("#getTimeIpt_6");
+                /*== 获取数据 ==*/
+                var data2={};
+                //系统时间
+                data2.nowdate=$getTimeIpt1.val();
+                //开始时间
+                data2.startdate=$getTimeIpt2.val();
+                //结束时间
+                data2.enddate=$getTimeIpt3.val();;
+                //是否跳过开始
+                data2.init=$getTimeIpt5.find("option:selected").val()=="false"?false:true;
+                clearTime2=$.leftTime(data2,function(d){
+                if(d.status){
+                    var $dateShow1=$("#dateShow3");
+                    $dateShow1.find(".d").html(d.d);
+                    $dateShow1.find(".h").html(d.h);
+                    $dateShow1.find(".m").html(d.m);
+                    $dateShow1.find(".s").html(d.s);
+                    switch(d.step){
+                        case 1:
+                        $("#dataInfoShow_2").html("距离开始时间：");
+                        break;
+                        case 2:
+                        $("#dataInfoShow_2").html("距离结束时间：");
+                        break;
+                        case 3:
+                        $("#dataInfoShow_2").html("倒计时已结束：");
+                        break;
+                        default:
+                        $("#dataInfoShow_2").html("");
+                         break;
+                    }
+                }
+            },$getTimeIpt6.find("option:selected").val()=="false"?false:true);
+            }
+            //初始化
+            setDateImportFn();
+            //手动触发
+            $("#dateBtn3").on("click",setDateImportFn);
+        });
+    </script>
