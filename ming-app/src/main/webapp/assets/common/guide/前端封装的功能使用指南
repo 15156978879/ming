@@ -26,4 +26,11 @@
     });
     cityPicker.init();
 
+  纯js省市区插件
+    <script type="text/javascript" src="/assets/common/vendor/province-city-area-js/data.js"></script>
+    <select id="cmbProvince" name="cmbProvince"></select>
+    <select id="cmbCity" name="cmbCity"></select>
+    <select id="cmbArea" name="cmbArea"></select>
+    addressInit('cmbProvince', 'cmbCity', 'cmbArea');
+
 4.日历插件

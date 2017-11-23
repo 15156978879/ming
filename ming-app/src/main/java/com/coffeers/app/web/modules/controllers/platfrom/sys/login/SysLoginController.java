@@ -27,10 +27,14 @@ public class SysLoginController {
     private HelloService helloService;
 
     @At(value = "/login")
-    public String index(HttpServletRequest request){
+    public String login(HttpServletRequest request){
 
         return "platform/pc/sys/login/index";
     }
 
+    @At(value = "/loginDo")
+    public String loginDo(HttpServletRequest request){
 
+        return "platform/pc/sys/login/home";
+    }
 }
