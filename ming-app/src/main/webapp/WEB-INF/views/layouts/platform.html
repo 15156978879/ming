@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <title>后台</title>
     <link rel="stylesheet" href="/assets/common/base.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="/assets/common/bootstrap.css" media="screen" type="text/css" />
     <script src="/assets/common/jquery.min.js"></script>
     <script src="/assets/common/base.js"></script>
     <!--省市-->
@@ -11,8 +12,149 @@
     <script type="text/javascript" src="/assets/common/vendor/city/js/hzw-city-picker.min.js"></script>
 
     <script type="text/javascript" src="/assets/common/vendor/province-city-area-js/data.js"></script>
+    <!--鼠标悬停特效-->
+    <link rel="stylesheet" type="text/css" href="/assets/common/vendor/hover/mouse/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/assets/common/vendor/hover/mouse/css/magic.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/common/vendor/hover/mouse/css/normalize.css">
+    <script type="text/javascript" src="/assets/common/vendor/hover/mouse/js/main.js"></script>
+    <!--jQuery原生模态框-->
+    <link rel="stylesheet" type="text/css" href="/assets/common/vendor/modal/jquery-modal/css/modal.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/common/vendor/modal/jquery-modal/css/style.css">
+    <script type="text/javascript" src="/assets/common/vendor/modal/jquery-modal/js/modal.min.js"></script>
+    <!--toast提示框-->
+    <link href="/assets/common/vendor/toast/css/toast.style.css" rel="stylesheet">
+    <script src="/assets/common/vendor/toast/js/toast.script.js"></script>
+    <!--左侧菜单-->
+    <link rel="stylesheet" type="text/css" href="/assets/common/vendor/menu/left-menu/css/nav.css">
+    <link rel="stylesheet" type="text/css" href="/assets/common/vendor/menu/left-menu/font/iconfont.css">
+    <script type="text/javascript" src="/assets/common/vendor/menu/left-menu/js/nav.js"></script>
 </head>
 <body>
+
+<!--顶部菜单栏-->
+<div class="container">
+    <div class="box">
+        <div class="box-content">
+            <div class="box-wrapper">
+                God in Creation
+            </div>
+        </div>
+        <div class="box-overlay magictime" data-hover="puffOut" data-return="puffIn">
+
+        </div>
+        <a class="link" href="#" target="_blank"></a>
+    </div>
+    <div class="box">
+        <div class="box-content">
+            <div class="box-wrapper">
+                God in Creation
+            </div>
+        </div>
+        <div class="box-overlay magictime" data-hover="puffOut" data-return="puffIn">
+
+        </div>
+        <a class="link" href="#" target="_blank"></a>
+    </div>
+</div>
+
+<!--左侧菜单-->
+<div class="nav">
+    <div class="nav-top">
+        <div id="mini" style="border-bottom:1px solid rgba(255,255,255,.1)"><img src="/assets/common/vendor/menu/left-menu/images/mini.png" ></div>
+    </div>
+    <ul>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_1"></i><span>网站配置</span><i class="my-icon nav-more"></i></a>
+            <ul>
+                <li><a href="javascript:;"><span>网站设置</span></a></li>
+                <li><a href="javascript:;"><span>友情链接</span></a></li>
+                <li><a href="javascript:;"><span>分类管理</span></a></li>
+                <li><a href="javascript:;"><span>系统日志</span></a></li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>文章管理</span><i class="my-icon nav-more"></i></a>
+            <ul>
+                <li><a href="javascript:;"><span>站内新闻</span></a></li>
+                <li><a href="javascript:;"><span>站内公告</span></a></li>
+                <li><a href="javascript:;"><span>登录日志</span></a></li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;"><i class="my-icon nav-icon icon_3"></i><span>订单管理</span><i class="my-icon nav-more"></i></a>
+            <ul>
+                <li><a href="javascript:;"><span>订单列表</span></a></li>
+                <li><a href="javascript:;"><span>打个酱油</span></a></li>
+                <li><a href="javascript:;"><span>也打酱油</span></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+<!--右侧菜单-->
+<link rel="stylesheet" href="/assets/common/vendor/menu/right-menu/css/reset.css"> <!-- CSS reset -->
+<link rel="stylesheet" href="/assets/common/vendor/menu/right-menu/css/style.css"> <!-- Resource style -->
+<script src="/assets/common/vendor/menu/right-menu/js/modernizr.js"></script> <!-- Modernizr -->
+<script src="/assets/common/vendor/menu/right-menu/js/main.js"></script>
+<nav class="cd-vertical-nav">
+    <ul>
+        <li><a href="#section1" class="active"><span class="label">5iweb</span></a></li>
+        <li><a href="#section2"><span class="label">HTML5</span></a></li>
+        <li><a href="#section3" id="sys_config"><span class="label">系统设置</span></a></li>
+        <li><a href="#section4"><span class="label">退出系统</span></a></li>
+    </ul>
+</nav>
+
+
+<!-- 系统设置模态框 -->
+<div class="modal fade oper-move" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">系统设置</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-4"><input type="radio" name="drag-drop"><a class="allow-drag" href="javascript:">允许拖放</a></div>
+                    <div class="col-xs-4"><input type="radio" name="drag-drop" checked><a class="ban-drag" href="javascript:">禁止拖放</a></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn" onclick="Toast('操作成功',0)">提示框0</button>
+                <button type="button" class="btn" onclick="Toast('操作成功',1)">提示框1</button>
+                <button type="button" class="btn" onclick="Toast('操作成功',2)">提示框2</button>
+                <button type="button" class="btn" onclick="Toast('操作成功',3)">提示框3</button>
+                <button type="button" class="btn" onclick="Toast('操作成功',4)">提示框4</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+        $("#sys_config").click(function(){
+            $("#myModal").modal('show');
+        })
+
+
+
+</script>
+
+
 
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!--鼠标悬停特效-->
+<link rel="stylesheet" type="text/css" href="/assets/common/vendor/hover/mouse/css/main.css">
+<link rel="stylesheet" type="text/css" href="/assets/common/vendor/hover/mouse/css/magic.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/common/vendor/hover/mouse/css/normalize.css">
+<script type="text/javascript" src="/assets/common/vendor/hover/mouse/js/main.js"></script>
+
+<div class="container">
+    <div class="box">
+        <div class="box-content">
+            <div class="box-wrapper">
+                God in Creation
+            </div>
+        </div>
+        <div class="box-overlay magictime" data-hover="puffOut" data-return="puffIn">
+
+        </div>
+        <a class="link" href="#" target="_blank"></a>
+    </div>
+</div>
+
+<div class="box-overlay magictime" data-hover="puffOut" data-return="puffIn"></div>
+<div class="box-overlay magictime" data-hover="bombRightOut" data-return=""></div>
+<div class="box-overlay magictime" data-hover="openUpLeft" data-return="openUpLeftRetourn"></div>
+<div class="box-overlay magictime" data-hover="openDownRight" data-return="openDownRightRetourn"></div>
+<div class="box-overlay magictime" data-hover="openUpRight" data-return="openUpRetourn"></div>
+<div class="box-overlay magictime" data-hover="openDownLeft" data-return="openDownLeftRetourn"></div>
+
+<div class="box-overlay magictime" data-hover="perspectiveLeft" data-return="perspectiveLeftRetourn"></div>
+<div class="box-overlay magictime" data-hover="perspectiveUp" data-return="perspectiveUpRetourn"></div>
+<div class="box-overlay magictime" data-hover="perspectiveRight" data-return="perspectiveRightRetourn"></div>
+<div class="box-overlay magictime" data-hover="perspectiveDown" data-return="perspectiveDownRetourn"></div>
+
+<div class="box-overlay magictime" data-hover="rotateRight" data-return=""></div>
+<div class="box-overlay magictime" data-hover="rotateUp" data-return=""></div>
+<div class="box-overlay magictime" data-hover="rotateLeft" data-return=""></div>
+<div class="box-overlay magictime" data-hover="rotateDown" data-return=""></div>
+
+<div class="box-overlay magictime" data-hover="slideLeft" data-return="slideLeftRetourn"></div>
+<div class="box-overlay magictime" data-hover="slideUp" data-return="slideUpRetourn"></div>
+<div class="box-overlay magictime" data-hover="slideRight" data-return="slideRightRetourn"></div>
+<div class="box-overlay magictime" data-hover="slideDown" data-return="slideDownRetourn"></div>
+
+<div class="box-overlay magictime" data-hover="tinLeftOut" data-return="tinLeftIn"></div>
+<div class="box-overlay magictime" data-hover="tinUpOut" data-return="tinUpIn"></div>
+<div class="box-overlay magictime" data-hover="tinRightOut" data-return="tinRightIn"></div>
+<div class="box-overlay magictime" data-hover="tinDownOut" data-return="tinDownIn"></div>

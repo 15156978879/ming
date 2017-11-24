@@ -1,6 +1,4 @@
 <!--# include("/layouts/platform.html") {}#-->
-<link rel="stylesheet" href="/assets/common/vendor/time/leftTime/leftTime.css" media="screen" type="text/css" />
-<script type="text/javascript" src="/assets/common/vendor/time/leftTime/leftTime.js"></script>
 
 <style>
 
@@ -8,13 +6,57 @@
 
 </style>
 
+<link rel="stylesheet" href="/assets/common/vendor/drag-drop/dad/css/jquery.dad.css">
+<script src="/assets/common/vendor/drag-drop/dad/js/jquery.dad.min.js"></script>
 
 
-<div class="last-time-second oper-move" style="width: 100px;height: 100px;background-color: rgba(115,115,115,0.5);"></div>
+<div class="wrap">
+    <div class="jq22">
+        <div class="item item1"><span>1</span></div>
+        <div class="item item2"><span>2</span></div>
+        <div class="item item3"><span>3</span></div>
+        <div class="item item4"><span>4</span></div>
+        <div class="item item5"><h4>标题</h4><span>5</span></div>
+    </div>
+    <div style='float:left'>
+        <div class="dropzone1">拖放到这里删除</div>
+        <div class="dropzone2">拖放到这里增加</div>
+    </div>
+</div>
+
+
 <script type="text/javascript">
-    $(function(){
 
+    $(function () {
+        d.deactivate();
+    })
+    var d = $('.jq22').dad({
+        //draggable: 'h4',//部分拖动
+        callback: function () {
+            Toast('拖放成功',1);
+        }
+    });
 
+    d.addDropzone('.dropzone1', function(e){
+        e.remove();
+    });
 
+    var target = $('.dropzone2');
+    d.addDropzone(target, function(e){
+        e.find('span').appendTo(target);
+        e.remove();
+    });
+
+    $("input[name='drag-drop']").click(function () {
+        $(this).siblings("a").click();
+    });
+
+    $('.allow-drag').on('click', function () {
+        d.activate();
+        $(this).siblings("input[name='drag-drop']").prop("checked",true);
+    });
+    $('.ban-drag').on('click', function () {
+        d.deactivate();
+        $(this).siblings("input[name='drag-drop']").prop("checked",true);
     });
 </script>

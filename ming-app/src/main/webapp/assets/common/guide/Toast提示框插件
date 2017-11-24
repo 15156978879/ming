@@ -1,0 +1,10 @@
+    <link href="/assets/common/vendor/toast/css/toast.style.css" rel="stylesheet">
+    <script src="/assets/common/vendor/toast/js/toast.script.js"></script>
+
+    <button type="button" class="btn" onclick="Toast('操作成功','success')">保存</button>
+    <button type="button" class="btn" onclick="Toast('操作成功','1')">保存</button>
+    <button type="button" class="btn" onclick="Toast('操作成功',2)">保存</button>
+
+
+
+    Toast('拖放成功');
